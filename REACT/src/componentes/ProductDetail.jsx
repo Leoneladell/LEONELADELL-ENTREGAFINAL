@@ -5,6 +5,7 @@ import { CartContext } from "../context/CartContext";
 
 function ProductDetail() {
   const [product, setProduct] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(""); // State for selected option
   const { id } = useParams();
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
 
@@ -33,6 +34,10 @@ function ProductDetail() {
     removeFromCart(product.id);
   };
 
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   const cartItem = cart.find(item => item.id === product.id);
   const quantity = cartItem ? cartItem.quantity : 0;
 
@@ -43,6 +48,23 @@ function ProductDetail() {
         <div className="flex flex-col justify-center flex-1 p-6 bg-white dark:bg-gray-800">
           <h3 className="text-3xl font-bold">{product.name}</h3>
           <p className="my-6 dark:text-gray-300">{product.description}</p>
+
+          
+          <div className="mb-4">
+            <label htmlFor="customSelect" className="block text-lg font-medium dark:text-gray-300">Aroma</label>
+            <select
+              id="customSelect"
+              value={selectedOption}
+              onChange={handleSelectChange}
+              className="mt-2 block w-full p-2 bg-gray-200 rounded dark:text-gray-300"
+            >
+              
+              <option value="option1">Orange-Pepper</option>
+              <option value="option2">Watermelon</option>
+              <option value="option3">Cedro-Verbena</option>
+            </select>
+          </div>
+
           <div className="flex items-center space-x-4">
             <button
               type="button"

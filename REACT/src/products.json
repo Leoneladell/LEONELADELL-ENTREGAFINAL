@@ -1,25 +1,25 @@
 [
     {
       "id": 1,
-      "name": "Vela cuenca",
+      "name": "Vela Moon",
       "price": 12000,
-      "description":"lorem ipsum",
+      "description":"Vela de soja en recipiente elaborado en ceramica artesanal. Contenido: 200 gr",
       "category":"velas",
       "image": "./producto1.jpg"
     },
     {
       "id": 2,
-      "name": "Vela summer",
+      "name": "Vela Bubble",
       "price": 10000,
-      "description":"lorem ipsum",
+      "description":"Vela de cera de soja en recipiente de vidrio. Contenido: 200 gr",
       "category":"velas",
       "image": "./producto2.jpg"
     },
     {
       "id": 3,
-      "name": "Difusor Magnolias",
+      "name": "Difusor Shine",
       "price": 3000,
-      "description":"lorem ipsum",
+      "description":"Difusor de vidrio transparante con tapa de madera de bamboo. Incluye varillas. Contenido: 125 ml",
       "category":"difusores",
       "image": "./producto3.jpg"
     },
@@ -27,7 +27,7 @@
       "id": 4,
       "name": "Difusor Cosmo",
       "price": 5000,
-      "description":"lorem ipsum",
+      "description":"Difusor en envase de vidrio color ambar. Incluye varillas. Contenido: 250 ml",
       "category":"difusores",
       "image": "./producto4.jpg"
     }

@@ -9,7 +9,7 @@ function NavBar(){
 	<div className="container flex justify-between h-16 mx-auto">
 		<a rel="noopener noreferrer" href="#" aria-label="Back to homepage" className="flex items-center p-2">
 		<img src="./logot.jpg" alt="" className="h-10"/>
-		<h1 className="">MUNAH GIFTSTORE!</h1>
+		<h1 className="">MUNAH GIFTSTORE</h1>
 		</a>
 		<ul className="items-stretch hidden space-x-3 md:flex">
 			<li className="flex">
