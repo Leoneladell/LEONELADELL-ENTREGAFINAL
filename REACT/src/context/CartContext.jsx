@@ -1,34 +1,43 @@
-import React, {createContext, useState} from "react"
+import React, { createContext, useState } from "react";
 
-export const CartContext=createContext()
+export const CartContext = createContext();
 
-export const CartProvider =({children}) =>{
-    const [cart, setCart]=useState([])
+export const CartProvider = ({ children }) => {
+    const [cart, setCart] = useState([]);
 
-    const addToCart=(product)=>{
-        setCart((prevCart)=>[...prevCart, product])
-    }
-
-    const removeFromCart=(productId)=>{
-        setCart((prevCart)=>{
-            const index =prevCart.findIndex(item=>item.id === productId)
-            if (index !== -1){
-                const newCart= [...prevCart]
-                newCart.splice(index, 1)
-                return newCart
+    const addToCart = (product) => {
+        setCart((prevCart) => {
+            const existingProductIndex = prevCart.findIndex(item => item.id === product.id);
+            if (existingProductIndex !== -1) {
+                const newCart = [...prevCart];
+                newCart[existingProductIndex].quantity += 1;
+                return newCart;
+            } else {
+                return [...prevCart, { ...product, quantity: 1 }];
             }
-                return prevCart
-            })
-    }
+        });
+    };
 
-    const clearCart=()=>{
-        setCart([])
-    }
+    const removeFromCart = (productId) => {
+        setCart((prevCart) => prevCart.filter(item => item.id !== productId));
+    };
 
-return (
-    <CartContext.Provider value={{cart, addToCart,removeFromCart,clearCart}}>
-        {children}
-    </CartContext.Provider>
-)
+    const clearCart = () => {
+        setCart([]);
+    };
 
-}
+    const updateCartQuantity = (productId, amount) => {
+        setCart((prevCart) => {
+            const updatedCart = prevCart.map(item => 
+                item.id === productId ? { ...item, quantity: item.quantity + amount } : item
+            ).filter(item => item.quantity > 0);
+            return updatedCart;
+        });
+    };
+
+    return (
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, updateCartQuantity }}>
+            {children}
+        </CartContext.Provider>
+    );
+};

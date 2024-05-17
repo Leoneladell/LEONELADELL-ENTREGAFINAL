@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getProducts, getProductsFromCategories } from "../products";
+import { app } from "../firebase";
+import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
+
+const db = getFirestore(app);
+const productosCollection = collection(db, "Productos");
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -9,43 +13,56 @@ function ProductList() {
   const [inputId, setInputId] = useState("");
 
   useEffect(() => {
+    console.log("Fetching products...");
     const fetchProducts = async () => {
       try {
-        const productsData = getProducts();
+        const querySnapshot = await getDocs(productosCollection);
+        const productsData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
         setProducts(productsData);
+        console.log("Products fetched:", productsData);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error("Error fetching products from Firestore:", error);
       }
     };
     fetchProducts();
   }, []);
 
   useEffect(() => {
+    console.log("Filtering products...");
     let filtered = [...products];
 
-    try {
-      if (category) {
-        filtered = getProductsFromCategories(category);
-        setFilteredProducts(filtered);
-      } else {
-        if (urlId) {
-          filtered = filtered.filter((product) => product.id.toString() === urlId);
-        }
-        setFilteredProducts(filtered);
-      }
-    } catch (error) {
-      console.error("Error filtering products:", error);
+    if (category) {
+      filtered = filtered.filter(product => product.category === category);
+    } else if (urlId) {
+      filtered = filtered.filter(product => product.id === urlId);
     }
+
+    setFilteredProducts(filtered);
+    console.log("Filtered products:", filtered);
   }, [urlId, category, products]);
 
   const handleInputChange = (event) => {
     setInputId(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const filtered = products.filter((product) => product.id.toString() === inputId.trim());
-    setFilteredProducts(filtered);
+    console.log("Submitting form...");
+    try {
+      const q = query(productosCollection, where("id", "==", inputId.trim()));
+      const querySnapshot = await getDocs(q);
+      const filtered = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setFilteredProducts(filtered);
+      console.log("Filtered products:", filtered);
+    } catch (error) {
+      console.error("Error filtering products from Firestore:", error);
+    }
   };
 
   return (
@@ -92,3 +109,6 @@ function ProductList() {
 }
 
 export default ProductList;
+
+
+

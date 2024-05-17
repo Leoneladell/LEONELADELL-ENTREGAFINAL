@@ -1,8 +1,4 @@
-# React + Vite
+# PROYECTO TIENDA VIRTUAL DE VENTA DE VELAR Y DIFUSORES
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<P>Mi nombre es Leonela Dell Arciprete, soy de la provincia de Buenos Aires, me encuentro actualmente cursando React js en CoderHouse, por lo que desarrolle esta web. El objetivo de la misma es un e-commerce de velas y difusores aromaticos.
+Para la creación de esta tienda virtual utilice React/Vite, Lucide Reac, Toastify js, react-router-dom. Con respecto a los estilos aplique Tailwind UI.</P>
